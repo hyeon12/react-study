@@ -1,37 +1,50 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 
-class EventPractice extends Component {
-    state = {
-        message: ''
+const EventPractice = () => {
+  const [form, setForm] = useState({
+    username: '',
+    message: ''
+  });
+  const { username, message} = form;
+  const onChange = e => {
+    const nextForm = {
+      ...form,  /*form을 가져와서 [e.target.name] : e.target.value로 덮어씌움. ...은 복사된 form을 가져오기 위한 문법*/
+      [e.target.name]: e.target.value
+    };
+    setForm(nextForm);
+  };
+  const onClick = () => {
+    alert(username + ': ' + message);
+    setForm({
+      username: '',
+      message: ''
+    });
+  };
+  const onKeyPress = e => {
+    if (e.key === 'Enter') {
+      onClick();
     }
-    render(){
-        return (
-            <div>
-                <h1>이벤트 연습</h1>
-                <input
-                    type="text"
-                    name="message"
-                    placeholder="아무거나 입력해 보세요"
-                    value={this.state.message}
-                    onChange={
-                        (e) => {
-                            this.setState({
-                                message: e.target.value
-                            })
-                        }
-                    }
-                />
-                <button onClick={
-                    () => {
-                        alert(this.state.message);
-                        this.setState({
-                            message: ''
-                            });
-                        }
-                    }>확인</button>
-            </div>
-        );
-    }
-}
-
+  };
+  return (
+    <div>
+      <h1>이벤트 연습</h1>
+      <input
+      type="text"
+      name="username"
+      placeholder="사용자명"
+      value={username}
+      onChange={onChange}
+      />
+      <input
+      type="text"
+      name="message"
+      placeholder="아무거나 입력해 주세요"
+      value={message}
+      onChange={onChange}
+      onKeyPress={onKeyPress}
+      />
+      <button onClick={onClick}>확인</button>
+    </div>
+  );
+};
 export default EventPractice;
