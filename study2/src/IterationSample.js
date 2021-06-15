@@ -13,20 +13,24 @@ const IterationSample = () => {
 
   const onChange = (e) => setInputText(e.target.value);
   const onClick = () => {
-      const nextNames = names.concat({
-          id: nextId,
-          text:inputText
-      });
-      setNextId(nextId + 1);
-      setNames(nextNames);  //names 값을 업데이트
-      setInputText(''); //inputText를 비움
-  }
+    const nextNames = names.concat({
+      id: nextId,
+      text: inputText,
+    });
+    setNextId(nextId + 1);
+    setNames(nextNames); //names 값을 업데이트
+    setInputText(""); //inputText를 비움
+  };
 
-  const onRemove = id => {
-      const nextNames = names.filter(name => name.id !== id);
-      setNames(nextNames);
-  }
-  const namesList = names.map((name) => <li key={name.id}>{name.text}</li>);
+  const onRemove = (id) => {
+    const nextNames = names.filter((name) => name.id !== id);
+    setNames(nextNames);
+  };
+  const namesList = names.map((name) => (
+    <li key={name.id} onDoubleClick={() => onRemove(name.id)}>
+      {name.text}
+    </li>
+  ));
   return (
     <>
       <input value={inputText} onChange={onChange} />
