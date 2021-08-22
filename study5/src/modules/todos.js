@@ -1,4 +1,4 @@
-const CHANGE_INPUT = 'todos/INPUT'; // 인풋 값을 변경
+const CHANGE_INPUT = 'todos/CHANGE_INPUT'; // 인풋 값을 변경
 const INSERT = 'todos/INSERT'; // 새로운 todo를 등록함
 const TOGGLE = 'todos/TOGGLE'; // todo를 체크/체크 해제함
 const REMOVE = 'todos/REMOVE'; // todo를 제거함
@@ -41,6 +41,11 @@ const initialState = {
       text: '리액트와 리덕스 사용하기',
       done: false,
     },
+    {
+      id: 3,
+      text: '왜 않되지??',
+      done: false,
+    },
   ],
 };
 
@@ -59,8 +64,9 @@ function todos(state = initialState, action) {
     case TOGGLE:
       return {
         ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.id ? { ...todo, done: !todo.done } : todo,
+        todos: state.todos.map(
+          (todo) =>
+            todo.id === action.id ? { ...todo, done: !todo.done } : todo,
         ),
       };
     case REMOVE:
